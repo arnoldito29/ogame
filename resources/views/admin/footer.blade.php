@@ -1,0 +1,1 @@
+<div id="copyright" class="text-center">© Copyright 2016 BananaCar</div>
