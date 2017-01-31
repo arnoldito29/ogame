@@ -24,7 +24,7 @@ class RequestsServiceProvider extends ServiceProvider
                 
                 if ( !empty( $data['n'] ) ) {
 
-                    $notice = App::make( 'App\Bananacar\Notifications' );
+                    $notice = App::make( 'App\Models\Notifications' );
                     
                     $notice->mark( $auth::user()->id, $data['n'] );
                 }

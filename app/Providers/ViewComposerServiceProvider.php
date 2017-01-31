@@ -16,7 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer('admin.main_menu', function( $view )
         {
-            $view->with( 'menu_list', \App\Bananacar\Menu::adminMenu() );
+            $view->with( 'menu_list', \App\Models\Menu::adminMenu() );
         });
         
         view()->composer('admin.blocks.navigation', function( $view )
@@ -26,7 +26,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         
         view()->composer('user.blocks.login_langs', function( $view )
         {
-            $view->with( 'langs', \App\Bananacar\Menu::langsMenu() );
+            $view->with( 'langs', \App\Models\Menu::langsMenu() );
         });
         
         view()->composer('user.blocks.notifications', function( $view )
