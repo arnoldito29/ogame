@@ -7,11 +7,6 @@
 @else
     @include('user.blocks.index.header')
 @endif
-@include('user.blocks.index.how')
-
-@include('user.blocks.index.travel')
-
-@include('user.blocks.index.reviews')
 
 @include('user.blocks.modals')
 

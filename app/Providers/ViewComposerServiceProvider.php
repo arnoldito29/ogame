@@ -53,16 +53,6 @@ class ViewComposerServiceProvider extends ServiceProvider
             $contents = App::make( '\App\Http\Controllers\ContentsController' );
             $view->with( 'footer_menu', $contents->footerMenu() );
         });
-        
-        view()->composer('user.blocks.index.travel', function( $view )
-        {
-            $view->with( 'index_travel', \App\Http\Controllers\BenefitsController::showTravelBenefits() );
-        });
-        
-        view()->composer('user.blocks.travel', function( $view )
-        {
-            $view->with( 'index_travel', \App\Http\Controllers\BenefitsController::showTravelBenefits() );
-        });
     }
 
     /**
