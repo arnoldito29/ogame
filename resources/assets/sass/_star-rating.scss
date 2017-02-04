@@ -1,0 +1,50 @@
+/*---RATING---*/
+
+.star-rating__container {
+  display: inline-block;
+  width: 100px;
+  height: 16px;
+  background: url(../images/ui/stars-grey.png) no-repeat center;
+}
+
+.star-rating {
+  width: 0%;
+  height: 16px;
+  background: url(../images/ui/stars.png) no-repeat;
+  background-position: 4px 1px;
+  color: #666;
+}
+
+.star-rating__1 {
+  width: 20%;
+}
+
+.star-rating__2 {
+  width: 40%;
+}
+
+.star-rating__3 {
+  width: 60%;
+}
+
+.star-rating__4 {
+  width: 80%;
+}
+
+.star-rating__5 {
+  width: 100%;
+}
+
+.star-rating__count {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 5px;
+  font-weight: 600;
+}
+
+.star-rating__reviews {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/*---END RATING---*/

@@ -1,0 +1,269 @@
+//landing page
+.btn-landing__big {
+  width: 290px;
+  height: 60px;
+  background: $ui-color-green;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #fff;
+  &:hover {
+    background: $ui-color-green-hover;
+    color: #fff;
+  }
+}
+
+.btn__fresh {
+  @include justify-content(flex-start);
+  width: 290px;
+  height: 60px;
+  border: 2px solid $ui-color-green;
+  border-radius: 3px;
+  padding: 0 20px 0 110px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $ui-color-green;
+  &:hover {
+    background: $ui-color-green;
+    color: #fff;
+  }
+  &-find {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 70px;
+      width: 24px;
+      height: 24px;
+      background: url("../images/ui/search-green.png") center no-repeat;
+    }
+    &:hover {
+      &:after {
+        background: url("../images/ui/search-w.png") center no-repeat;
+      }
+    }
+  }
+  &-offer {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 70px;
+      width: 27px;
+      height: 20px;
+      background: url("../images/ui/car-green.png") center no-repeat;
+    }
+    &:hover {
+      &:after {
+        background: url("../images/ui/car-w.png") center no-repeat;
+      }
+    }
+  }
+}
+
+.landing__h2 {
+  @include flexbox();
+  flex: 1 100%;
+  @include justify-content(center);
+  margin: 0 0 30px 0;
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.why {
+  position: relative;
+  width: 100%;
+  min-height: 415px;
+  padding: 60px 0 65px 0;
+  background: $ui-color-green;
+  color: #fff;
+  .why__desription {
+    position: relative;
+    margin: 10px 0;
+    padding-left: 35px;
+    line-height: 26px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      background: url("../images/ui/check.png") center no-repeat;
+    }
+  }
+  .why__road-snake {
+    position: absolute;
+    bottom: -54px;
+    width: 100%;
+    height: 170px;
+    background: url("../images/background-images/road-snake.png") center no-repeat;
+  }
+}
+
+.how {
+  width: 100%;
+  min-height: 470px;
+  padding: 65px 0 0 0;
+  background: url("../images/background-images/how.png");
+  color: $ui-color-grey;
+  .landing__h2 {
+    margin-bottom: 50px;
+  }
+  .how__container {
+    @include flexbox();
+    flex: 1 100%;
+    flex-direction: column;
+    @include align-items(center);
+    margin-bottom: 40px;
+  }
+  .how__img {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    width: 120px;
+    height: 120px;
+    margin-bottom: 40px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: $ui-color-green;
+    &:hover {
+      background: $ui-color-green-hover;
+    }
+  }
+  .how__title {
+    margin-bottom: 20px;
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+  .how__description {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+}
+
+/*And for getStated*/
+.travel-as {
+  width: 100%;
+  padding: 65px 0;
+  background: $ui-color-white-2;
+  color: $ui-color-grey;
+}
+
+.travel-as__container {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 30px 0;
+  background: #fff;
+}
+
+.travel-as__container-left {
+  margin-left: -15px;
+}
+
+.travel-as__container-right {
+  margin-right: -15px;
+}
+
+.travel-as__title {
+  margin: 0 30px 30px 30px;
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.travel-as__container-info {
+  @include flexbox();
+  flex-flow: row wrap;
+  min-height: 185px;
+  margin: 0 30px 30px 30px;
+}
+
+.container-info__img {
+  @include flexbox();
+  width: 210px;
+  @include justify-content(center);
+  @include align-items(flex-start);
+}
+
+.container-info__block {
+  @include flexbox();
+  width: 255px;
+  flex-direction: column;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.container-info__block-text {
+  position: relative;
+  @include flexbox();
+  width: 100%;
+  min-height: 24px;
+  margin-bottom: 15px;
+  padding-left: 40px;
+  @include align-items(center);
+  &:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: url("../images/ui/check-green.png") center no-repeat;
+  }
+}
+
+.travel-as__container-fresh {
+  margin: 0 0 30px;
+}
+
+.fresh__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #f4f4f4;
+  padding-bottom: 15px;
+}
+
+.fresh__btn-container {
+  @include flexbox();
+  width: 100%;
+  @include justify-content(center);
+}
+
+.community {
+  width: 100%;
+  min-height: 520px;
+  padding: 80px 0;
+  background: #fff;
+  color: $ui-color-grey;
+  .community__carousel {
+    min-height: 270px;
+  }
+  .carousel-control {
+    background: none;
+    opacity: 1;
+  }
+  .community__carousel-item {
+    height: 100%;
+    text-align: center;
+  }
+  .community__carousel-img {
+    img {
+      width: 150px;
+      height: 150px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+    }
+  }
+  .community__carousel-name {
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+  .community__carousel-text {
+    font-size: .875rem;
+    font-weight: 700;
+  }
+}

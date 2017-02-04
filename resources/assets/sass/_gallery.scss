@@ -1,0 +1,35 @@
+.gallery__container{
+  @include flexbox();
+  @include flex-flow(row wrap);
+  margin: 0 -5px -15px;
+}
+.gallery__item{
+  position: relative;
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  width: 100px;
+  height: 100px;
+  margin: 0 5px 15px;
+  border-radius: 50%;
+  background: url("../images/background-images/seat.png");
+  background-size: 100%;
+  color: transparent;
+  .gallery__text{
+    display: none;
+    @include justify-content(center);
+    @include align-items(center);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 0.875rem;
+    word-break: break-all;
+    color: #fff;
+  }
+  &:hover{
+    .gallery__text{
+      @include flexbox();
+    }
+  }
+}

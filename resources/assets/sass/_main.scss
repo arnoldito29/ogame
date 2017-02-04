@@ -1,0 +1,17 @@
+html,body{
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: inherit !important;
+  font-size: $main-font-size;
+  font-family: 'Open Sans', sans-serif;
+  background: $ui-color-grey;
+}
+body{
+  background: $ui-color-white-2;
+}
+a{
+  text-decoration: none;
+  &:hover{
+    text-decoration: none;
+  }
+}

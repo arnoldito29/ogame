@@ -1,0 +1,526 @@
+.outline {
+  outline: 1px solid red;
+}
+
+/*---BUTTONS---*/
+.btn {
+  position: relative;
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 0 20px;
+  background: none;
+  font-weight: 600;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn__green {
+  border-color: $ui-color-green;
+  background: $ui-color-green;
+  color: #fff;
+  &:hover {
+    border-color: $ui-color-green-hover;
+    background: $ui-color-green-hover;
+    color: #fff;
+  }
+  &:visited{
+    border-color: $ui-color-green;
+    background: $ui-color-green;
+    color: #fff;
+  }
+  &:focus{
+    border-color: $ui-color-green;
+    background: $ui-color-green;
+    color: #fff;
+  }
+}
+
+.btn__empty-green {
+
+  border-width: 2px;
+  border-color: $ui-color-light-green;
+  background: transparent;
+  color: $ui-color-light-green;
+  &:hover {
+    border-color: $ui-color-light-green;
+    background: $ui-color-light-green;
+    color: #fff;
+  }
+  &:visited{
+    border-color: $ui-color-light-green;
+    background: $ui-color-light-green;
+    color: #fff;
+  }
+  &:focus{
+    border-color: $ui-color-light-green;
+    background: $ui-color-light-green;
+    color: #fff;
+  }
+}
+
+.btn__empty-grey {
+  border-color: #b7b7b7;
+  background: #fff;
+  color: #000;
+  &:hover {
+    border-color: #b7b7b7;
+    background: $ui-color-light-grey;
+    color: #000;
+  }
+}
+
+.btn__white{
+  border-color: #fff;
+  background: #fff;
+  color: $ui-color-green;
+  &:hover{
+
+  }
+}
+
+.btn__empty-white{
+  border-color: #fff;
+  background: $ui-color-green;
+  color: #fff;
+  &:hover{
+
+  }
+}
+
+//social
+
+.btn__social {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+}
+
+.btn__social-fb {
+  background-color: $facebook_btn;
+  &:hover {
+    background-color: $facebook_btn_hover;
+    color: #fff;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-right: 1px solid #5576ba;
+    background: url("../images/social/facebook-icon.png") center no-repeat;
+  }
+}
+
+.btn__social-g {
+  background-color: $google_btn;
+  &:hover {
+    background-color: $google_btn_hover;
+    color: #fff;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-right: 1px solid #5576ba;
+    background: url("../images/social/google-icon.png") center no-repeat;
+  }
+}
+
+.btn__social-round{
+  position: relative;
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  &-fb{
+    background: url("../images/social/fb.png") center;
+    &:hover{
+      background: url("../images/social/fb-green.png") center;
+    }
+  }
+  &-g{
+    background: url("../images/social/g+.png") center;
+    &:hover{
+      background: url("../images/social/g+green.png") center;
+    }
+  }
+  &-i{
+    background: url("../images/social/insta.png") center;
+    &:hover{
+      background: url("../images/social/insta-green.png") center;
+    }
+  }
+  &-t{
+    background: url("../images/social/twitter.png") center;
+    &:hover{
+      background: url("../images/social/twitter-green.png") center;
+    }
+  }
+  &-you{
+    background: url("../images/social/youtube.png") center;
+    &:hover{
+      background: url("../images/social/youtube-green.png") center;
+    }
+  }
+  &-dra{
+    background: url("../images/social/draugiem.png") center;
+    &:hover{
+      background: url("../images/social/draugiem-green.png") center;
+    }
+  }
+}
+
+
+//modals
+.btn-modal__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  width: 30px;
+  height: 30px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, .75);
+  z-index: 20;
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn__modals {
+  height: 40px;
+}
+
+/*---RADIO BTN---*/
+
+.radio-container {
+  display: inline-flex;
+  padding-right: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  input[type="radio"] {
+    display: none;
+    &:checked + .radio:before {
+      content: "";
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      background-image: url(../images/ui/radio_cheked.png)
+    }
+  }
+  .radio {
+    &:before {
+      content: "";
+      display: inline-flex;
+      position: relative;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+      background-image: url(../images/ui/radio.png)
+    }
+  }
+}
+
+/*DIVIDER*/
+.divider__container {
+  @include flexbox();
+  width: 100%;
+  justify-content: space-between;
+  @include align-items(center);
+  color: #666;
+  .divider {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid #e8e8e8;
+    vertical-align: middle;
+  }
+  .divider-left {
+    width: 46%;
+  }
+  .divider-center {
+    margin: 0 10px;
+  }
+  .divider-right {
+    width: 46%;
+  }
+}
+
+/*INPUTS*/
+
+.input {
+  @include flexbox();
+  width: 100%;
+  height: 40px;
+  border: 1px solid #acacac;
+  border-radius: 3px;
+  padding: 10px 15px;
+  &:focus {
+    border-color: $ui-color-green;
+    box-shadow: inset 0px 0px 10px 0px rgba(106, 179, 68, 0.5);
+    outline: none;
+  }
+  & + .invalid {
+    border-color: $ui-color-error;
+  }
+  &__addon-left{
+    position: absolute;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    color: #969696;
+  }
+  &__addon-right{
+    position: absolute;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    color: #000;
+  }
+}
+
+
+.input__container {
+  position: relative;
+  width: 100%;
+  font-weight: 600;
+  font-size: .875rem;
+  .input {
+    padding: 10px 40px;
+    &:-ms-input-placeholder {
+      color: #969696;
+    }
+    &:-moz-placeholder {
+      color: #969696;
+    }
+    &::-moz-placeholder {
+      color: #969696;
+    }
+    &::-webkit-input-placeholder {
+      color: #969696;
+    }
+  }
+  &-from {
+    .input__addon-left {
+      background: url("../images/ui/location-green.png") no-repeat center;
+      background-size: 10px 16px;
+    }
+    .input__addon-right {
+      background: url("../images/ui/switch-not-active.png") no-repeat center;
+      background-size: 14px 14px;
+    }
+    .input {
+      &-has-filled + .input__addon-right {
+        background: url("../images/ui/switch.png") no-repeat center;
+      }
+    }
+  }
+  &-to {
+    .input__addon-left {
+      background: url("../images/ui/location-blue.png") no-repeat center;
+      background-size: 10px 16px;
+    }
+  }
+  &-calendar {
+    &-from{
+      .input {
+        padding-left: 90px;
+      }
+      .input__addon-left {
+        @include justify-content(flex-end);
+        width: 80px;
+        background: url("../images/ui/calendar.png") no-repeat;
+        background-size: 18px 18px;
+        background-position: 10px center;
+
+      }
+    }
+    &-to{
+      .input {
+        padding-left: 70px;
+      }
+      .input__addon-left {
+        @include justify-content(flex-end);
+        width: 60px;
+        background: url("../images/ui/calendar.png") no-repeat;
+        background-size: 18px 18px;
+        background-position: 10px center;
+
+      }
+    }
+  }
+  &-time{
+    .input {
+      padding-left: 40px;
+    }
+    .input__addon-left {
+      @include justify-content(flex-end);
+      width: 40px;
+      background: url("../images/ui/clock.png") no-repeat;
+      background-size: 18px 18px;
+      background-position: 10px center;
+
+    }
+  }
+}
+
+
+.input__group {
+  @include flexbox();
+  justify-content: space-between;
+  .input {
+    width: 45%;
+  }
+}
+
+.input__error {
+  display: none;
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  &:hover .input__error-msg {
+    display: block;
+  }
+
+}
+
+.input__error-msg {
+  position: absolute;
+  display: none;
+  top: -150%;
+  left: 35px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  background: #fff;
+  z-index: 1001;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  &:before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: -21px;
+    border: 10px solid transparent;
+    border-right: 10px solid #ccc;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: -20px;
+    border: 10px solid transparent;
+    border-right: 10px solid #fff;
+  }
+
+}
+
+/*------------------------------SELECT-------------------*/
+.select {
+  @include flexbox();
+  @include align-items(center);
+  width: 100%;
+  height: 40px;
+  border: 1px solid #acacac;
+  border-radius: 3px;
+  padding: 0 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("../images/ui/chevron-small-down.png");
+  background-position: 97% 50%;
+  background-repeat: no-repeat;
+  &:focus {
+    outline: none;
+  }
+}
+
+/*---------------------TEXTAREA----------------------*/
+
+.textarea__container{
+  @include flexbox();
+  @include flex-flow(row wrap);
+  width: 100%;
+  .textarea{
+    width: 100%;
+    padding: 15px;
+    font-size: .875rem;
+    color: #acacac;
+    &:focus{}
+    outline: none;
+  }
+}
+
+/*---------------------INVALID-----------------------*/
+
+.invalid {
+  border-color: $ui-color-error;
+  & + .input__error {
+    display: block;
+  }
+  .input {
+    border-color: $ui-color-error;
+  }
+}
+
+/*BADGE*/
+.badge {
+  position: absolute;
+  top: 0;
+  left: 75%;
+  display: none;
+  @include justify-content(center);
+  @include align-items(center);
+  width: 18px;
+  height: 18px;
+  border: 1px solid $ui-color-red;
+  border-radius: 50%;
+  background: $ui-color-red;
+  font-size: 0.625rem;
+}
+
+/*LINK*/
+.link {
+  color: $ui-color-link;
+  cursor: pointer;
+}
+
+/*----------*/
+.none{
+  display: none;
+}
+
+.hidden{
+  visibility: hidden;
+}

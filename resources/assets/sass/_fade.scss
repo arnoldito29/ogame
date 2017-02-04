@@ -1,0 +1,131 @@
+.fade__container {
+  margin: 0;
+  padding: 0;
+  max-height: 684px;
+  overflow-y: overlay;
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.fade__item {
+  @include flexbox();
+  flex-flow: row wrap;
+  justify-content: space-between;
+  //margin: 10px 0 20px 0;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #f4f4f4;
+  padding: 15px 30px;
+  vertical-align: top;
+  cursor: pointer;
+  &:hover{
+    background: #f0f8eb;
+  }
+}
+
+.fade__img {
+  width: 82px;
+  margin-right: 10px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.fade__col {
+  //outline: 1px solid red;
+}
+
+.fade__col-1 {
+  width: 120px;
+}
+
+.fade__col-2 {
+  width: 170px;
+  margin-right: 10px;
+}
+
+.fade__col-3 {
+  width: 100px;
+  text-align: right;
+}
+
+.fade__name {
+  line-height: 18px;
+  img {
+    vertical-align: middle;
+  }
+}
+
+.fade__name-link {
+  font-size: .875rem;
+  font-weight: 600;
+  color: $ui-color-link;
+}
+
+.fade__rating {
+  margin-bottom: 5px;
+  font-size: .875rem;
+  color: $ui-color-grey;
+  img{
+    width: 16px;
+    height: 15px;
+    margin: -4px 0 0;
+  }
+}
+
+.fade__rating-text {
+  font-weight: 600;
+}
+
+.fade__social {
+  font-size: .875rem;
+  line-height: 18px;
+  img {
+    margin: -2px 0 0;
+  }
+}
+
+.fade__time {
+  margin-bottom: 10px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $ui-color-green;
+}
+
+.fade__place {
+  position: relative;
+  @include flexbox();
+  width: 100%;
+  height: 45px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 17px;
+    height: 39px;
+    background: url("../images/ui/arrow.png") center no-repeat;
+  }
+}
+
+.fade__place-from {
+}
+
+.fade__place-to {
+}
+
+.fade__cost {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: $ui-color-grey;
+}
+
+.fade__free-seats {
+
+}
