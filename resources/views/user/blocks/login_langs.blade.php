@@ -4,7 +4,6 @@
                 data-target="#modalRegistration">{{trans( 'auth.Sign in' ) }}</button>
     @else
         @include('user.blocks.messages')
-        @include('user.blocks.notifications')
         <div class="dropdown header__dropdown">
             <button class="btn header__btn-dropdown dropdown-toggle header__btn header__btn-name"
                     type="button" data-toggle="dropdown">

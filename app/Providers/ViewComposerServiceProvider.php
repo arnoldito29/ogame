@@ -29,13 +29,6 @@ class ViewComposerServiceProvider extends ServiceProvider
             $view->with( 'langs', \App\Models\Menu::langsMenu() );
         });
         
-        view()->composer('user.blocks.notifications', function( $view )
-        {
-            $notifications = App::make( '\App\Http\Controllers\NotificationsController' );
-            $view->with( 'notifications_count', $notifications->getUnreadNotifications() )
-                 ->with( 'notifications_list', $notifications->getUserNotifications() );
-        });
-        
         view()->composer('user.blocks.messages', function( $view )
         {
             $messages = App::make( '\App\Http\Controllers\MessagesController' );
