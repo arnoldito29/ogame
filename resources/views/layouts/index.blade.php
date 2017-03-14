@@ -1,13 +1,7 @@
 @include('user.header.head')
 
 <body>
-
-@if ( !empty( $home_page ) )
-    @include('user.blocks.index.header_landing')
-@else
-    @include('user.blocks.index.header')
-@endif
-
+veikia
 @include('user.blocks.modals')
 
 @include('user.footer.footer')
