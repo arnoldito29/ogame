@@ -2,6 +2,4 @@
 
 @section('content')
 
-@include('user.blocks.travel')
-
 @endsection
