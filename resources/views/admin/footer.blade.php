@@ -1,1 +1,0 @@
-<div id="copyright" class="text-center">© Copyright 2016 </div>

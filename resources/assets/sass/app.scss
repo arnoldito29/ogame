@@ -1,19 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,cyrillic);
-@import '_variables.scss';
-@import '_mixin.scss';
-/*Main modules*/
-@import '_main.scss';
-@import '_header.scss';
-@import '_footer.scss';
-/*UI*/
-@import '_ui.scss';
-@import '_modals.scss';
-@import '_fade.scss';
-@import '_star-rating.scss';
-@import '_gallery.scss';
-/*Pages*/
-@import '_landing.scss';
-@import '_get-started.scss';
-@import '_find-a-ride.scss';
-/*Additional css*/
-@import '_somecss.scss';
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";

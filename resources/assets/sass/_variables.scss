@@ -1,29 +1,38 @@
-/*Grid*/
-$wrapper-width: 1200px;
 
-/*Fonts*/
-$main-font-size: 16px;
+// Body
+$body-bg: #f5f8fa;
 
-/*Colors*/
-$ui-color-green: #6ab344;
-$ui-color-green-hover: #619546;
-$ui-color-light-green: #71b64d;
-$ui-color-dark-green: #66984c;
+// Borders
+$laravel-border-color: darken($body-bg, 10%);
+$list-group-border: $laravel-border-color;
+$navbar-default-border: $laravel-border-color;
+$panel-default-border: $laravel-border-color;
+$panel-inner-border: $laravel-border-color;
 
-$ui-color-grey: #555;
-$ui-color-light-grey: #ebebeb;
+// Brands
+$brand-primary: #3097D1;
+$brand-info: #8eb4cb;
+$brand-success: #2ab27b;
+$brand-warning: #cbb956;
+$brand-danger: #bf5329;
 
-$ui-color-error: #ed1c24;
-$ui-color-red: #ff0000;
+// Typography
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-family-sans-serif: "Raleway", sans-serif;
+$font-size-base: 14px;
+$line-height-base: 1.6;
+$text-color: #636b6f;
 
+// Navbar
+$navbar-default-bg: #fff;
 
-$ui-color-white-2: #f4f4f4;
+// Buttons
+$btn-default-color: $text-color;
 
-$ui-color-link: #0083c7;
+// Inputs
+$input-border: lighten($text-color, 40%);
+$input-border-focus: lighten($brand-primary, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
 
-/*Social*/
-$facebook_btn: #3b5998;
-$facebook_btn_hover: #324a80;
-$google_btn: #4285f4;
-$google_btn_hover: #346bc2;
-
+// Panels
+$panel-default-heading-bg: #fff;
