@@ -4,12 +4,14 @@ namespace App\Services;
 
 use App\Modules\Birthday;
 use App\Modules\Menu;
+use Carbon\Carbon;
 
 class BirthdayService
 {
-    public function __construct(Birthday $birthday)
+    public function __construct(Birthday $birthday, ProcessService $processService)
     {
         $this->birthday = $birthday;
+        $this->processService = $processService;
     }
 
     public function getBirthdays()
@@ -32,5 +34,21 @@ class BirthdayService
         $item->birthday = $requestDsta['birthday'];
 
         return $item->save();
+    }
+
+    public function setEmail()
+    {
+        $date = Carbon::now()->addDay(-1)->format('-m-d');
+
+        $items = $this->birthday::where('birthday', 'like', '%' . $date)->get();
+
+        if ($items->count() > 0) {
+            foreach ($items as $item) {
+                $this->processService->addItem([
+                    'model_type' => Birthday::class,
+                    'model_id' => $item->id
+                ]);
+            }
+        }
     }
 }

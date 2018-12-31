@@ -120,4 +120,6 @@ return [
         ],
     ],
 
+    'default' => env('DEFAULT_EMAIL'),
+
 ];
