@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Modules\Birthday;
-use App\Modules\Menu;
 use Carbon\Carbon;
 
 class BirthdayService
