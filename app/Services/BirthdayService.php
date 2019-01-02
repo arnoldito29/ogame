@@ -37,7 +37,7 @@ class BirthdayService
 
     public function setEmail()
     {
-        $date = Carbon::now()->addDay(-1)->format('-m-d');
+        $date = Carbon::now()->addDay(1)->format('-m-d');
 
         $items = $this->birthday::where('birthday', 'like', '%' . $date)->get();
 
