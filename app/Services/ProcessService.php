@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\FlatEmail;
 use App\Modules\Process;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BirthdayEmail;
@@ -49,6 +50,9 @@ class ProcessService
             switch ($class) {
                 case 'Birthday':
                     Mail::to($this->config['default'])->send(new BirthdayEmail($item));
+                    break;
+                case 'Flat':
+                    Mail::to($this->config['default'])->send(new FlatEmail($item));
                     break;
             }
 

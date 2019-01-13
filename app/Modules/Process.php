@@ -12,6 +12,12 @@ class Process extends Model
             'template' => 'birthdays',
             'class' => Birthday::class,
             'url' => 'birthdays',
+        ],
+        [
+            'name' => 'Flat',
+            'template' => 'flats',
+            'class' => Flat::class,
+            'url' => 'flats',
         ]
     ];
 
