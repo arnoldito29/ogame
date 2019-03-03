@@ -13,13 +13,15 @@ class CreateProcessTable extends Migration
      */
     public function up()
     {
-        Schema::create('process', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('model_type');
-            $table->integer('model_id');
-            $table->integer('sent');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('process')) {
+            Schema::create('process', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('model_type');
+                $table->integer('model_id');
+                $table->integer('sent');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

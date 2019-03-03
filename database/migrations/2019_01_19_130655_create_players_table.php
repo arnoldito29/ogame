@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBirthdaysTable extends Migration
+class CreatePlayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateBirthdaysTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('birthdays')) {
-            Schema::create('birthdays', function (Blueprint $table) {
+        if (!Schema::hasTable('players')) {
+            Schema::create('players', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
-                $table->date('birthday');
+                $table->integer('ogame_id');
+                $table->integer('unit');
+                $table->integer('status');
                 $table->timestamps();
             });
         }
@@ -30,6 +32,6 @@ class CreateBirthdaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('birthdays');
+        Schema::dropIfExists('players');
     }
 }

@@ -13,11 +13,13 @@ class CreateObjectLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('object_links', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('link');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('object_links')) {
+            Schema::create('object_links', function (Blueprint $table) {
+                $table->increments('id');
+                $table->text('link');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
