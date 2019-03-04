@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('v1')->namespace('Api\Controllers')->group(function() {
+    Route::prefix('ogame')->group(function() {
+        Route::post('/stats_points', 'OgameStatController@statsPoints')->name('ogame.statsPoints');
+    });
+});

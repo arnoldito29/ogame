@@ -13,5 +13,10 @@ class OgameStatController extends Controller
         $this->ogameStatService = $ogameStatService;
     }
 
+    public function statsPoints(Request $request)
+    {
+        $status = $this->ogameStatService->statsPoints($request->all());
 
+        return ['success' => $status];
+    }
 }
