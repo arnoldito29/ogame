@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Modules\OgameStat;
+use App\Modules\Planet;
 use voku\helper\HtmlDomParser;
 
-class OgameStatService
+class PlanetService
 {
-    public function __construct(OgameStat $ogameStat, PlayerService $playerService)
+    public function __construct(Planet $planet, PlayerService $playerService)
     {
-        $this->ogameStat = $ogameStat;
+        $this->planet = $planet;
         $this->playerService = $playerService;
     }
 
