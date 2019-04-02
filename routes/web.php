@@ -22,10 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('admin')->namespace('Admin')->middleware('admin')->group(function () {
     Route::get('/', 'AdminPanelController@index')->name('admin.home');
 
-    Route::prefix('users')->group(function () {
-        Route::get('/', 'UserController@index')->name('users.index');
-    });
-
     Route::prefix('birthdays')->group(function () {
         Route::get('/', 'BirthdayController@index')->name('birthdays.index');
         Route::get('/create', 'BirthdayController@create')->name('birthdays.create');
