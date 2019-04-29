@@ -24,6 +24,6 @@ Route::prefix('v1')->namespace('Api\Controllers')->group(function() {
         Route::post('/stats_reseach', 'OgameStatController@statsReseach')->name('ogame.statsReseach');
         Route::post('/stats_military', 'OgameStatController@statsMilitary')->name('ogame.statsMilitary');
 
-        Route::post('/galaxy', 'OgameStatController@galaxy')->name('ogame.galaxy');
+        Route::post('/galaxy', 'PlanetController@galaxy')->name('ogame.galaxy');
     });
 });

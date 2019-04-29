@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Services\OgameStatService;
 use App\Services\PlanetService;
 use Illuminate\Http\Request;
 

@@ -31,6 +31,17 @@ class PlayerService
         return $players;
     }
 
+    public function getPlayerById($playerId)
+    {
+        if (empty($playerId)) {
+            return null;
+        }
+
+        $player = $this->player::where('ogame_id', $playerId)->first();
+
+        return $player;
+    }
+
     public function getPlayerId($playerName, $playerId)
     {
         if (!empty($this->playersIds[$playerId])) {
@@ -53,5 +64,18 @@ class PlayerService
         $player->save();
 
         return $player->id;
+    }
+
+    public function updatePlayerStatus($playerId, $status)
+    {
+        $player = $this->getPlayerById($playerId);
+
+        if (empty($player)) {
+            return false;
+        }
+
+        $player->status = $status;
+
+        return $player->save();
     }
 }

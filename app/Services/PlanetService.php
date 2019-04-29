@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Modules\OgameStat;
 use App\Modules\Planet;
+use Carbon\Carbon;
 use voku\helper\HtmlDomParser;
 
 class PlanetService
@@ -96,5 +97,164 @@ class PlanetService
         $stat->type = $type;
 
         return $stat->save();
+    }
+
+    public function setGalaxy(array $requestData)
+    {
+        $html = HtmlDomParser::str_get_html($requestData['data']);
+        $planetsList = $html->findOne('#mobileDiv');
+
+        if (!$planetsList->hasAttribute('id')) {
+            return false;
+        }
+
+        $table = $planetsList->findOne('table');
+        $attributes = $table->getAllAttributes();
+
+        $galaxy = !empty($attributes['data-galaxy']) ? $attributes['data-galaxy'] : 0;
+        $system = !empty($attributes['data-system']) ? $attributes['data-system'] : 0;
+
+        $rows = $table->findOne('tbody')->find('tr');
+
+        foreach ($rows as $key => $value) {
+            $rowClass =  trim($value->getAttribute('class'));
+            $class = preg_split('/ /', $rowClass);
+
+            if (in_array('empty_filter', $class)) {
+                $this->removePlanet($galaxy, $system, $key+1);
+            } else {
+                $name = trim($value->findOne('.planetname')->nodeValue);
+                $playerId = $this->getPlayerId($value);
+                $moon = $this->getMoon($value);
+                $status = $this->getPlayerStatus($class);
+                $this->updatePlayerPlanet($playerId, $name, $galaxy, $system, $key+1);
+                $this->updatePlayerMoon($playerId, $moon, $galaxy, $system, $key+1);
+                $this->playerService->updatePlayerStatus($playerId, $status);
+            }
+        }
+
+        return true;
+    }
+
+    public function updatePlayerMoon($playerId, $moon, int $galaxy, int $system, int $location)
+    {
+        if (empty($moon)) {
+            return false;
+        }
+
+        if (empty($galaxy) || empty($system) || empty($location)) {
+            return false;
+        }
+
+        $planet = $this->planet::where('galaxy', $galaxy)
+            ->where('sector', $system)
+            ->where('place', $location)
+            ->where('type', 'm')
+            ->first();
+
+        $player = $this->playerService->getPlayerById($playerId);
+
+        if (empty($player)) {
+            return false;
+        }
+
+        if (!empty($planet)) {
+            $planet->player_id = $player->id;
+            $planet->type = 'm';
+            $planet->data = Carbon::now();
+            $planet->name = $moon;
+
+            return $planet->save();
+        }
+
+        $planet = new Planet();
+        $planet->player_id = $player->id;
+        $planet->type = 'm';
+        $planet->data = Carbon::now();
+        $planet->galaxy = $galaxy;
+        $planet->sector = $system;
+        $planet->place = $location;
+        $planet->name = $moon;
+
+        return $planet->save();
+    }
+
+    public function updatePlayerPlanet($playerId, $name, int $galaxy, int $system, int $location)
+    {
+        if (empty($galaxy) || empty($system) || empty($location)) {
+            return false;
+        }
+
+        $planet = $this->planet::where('galaxy', $galaxy)
+            ->where('sector', $system)
+            ->where('place', $location)
+            ->where('type', 'p')
+            ->first();
+
+        $player = $this->playerService->getPlayerById($playerId);
+
+        if (empty($player)) {
+            return false;
+        }
+
+        if (!empty($planet)) {
+            $planet->player_id = $player->id;
+            $planet->type = 'p';
+            $planet->data = Carbon::now();
+            $planet->name = $name;
+
+            return $planet->save();
+        }
+
+        $planet = new Planet();
+        $planet->player_id = $player->id;
+        $planet->type = 'p';
+        $planet->data = Carbon::now();
+        $planet->galaxy = $galaxy;
+        $planet->sector = $system;
+        $planet->place = $location;
+        $planet->name = $name;
+
+        return $planet->save();
+    }
+
+    public function getMoon($value)
+    {
+        $moonItem = $value->findOne('.moon');
+        $moonAttributes = $moonItem->getAllAttributes();
+        $moon = !empty($moonAttributes['data-moon-id']) ? $moonAttributes['data-moon-id'] : 0;
+
+        return $moon;
+    }
+
+    public function removePlanet(int $galaxy, int $system, int $location)
+    {
+        if (empty($galaxy) || empty($system) || empty($location)) {
+            return false;
+        }
+
+        $planets = $this->planet::where('galaxy', $galaxy)
+            ->where('sector', $system)
+            ->where('place', $location)
+            ->get();
+
+        if (!$planets->isEmpty()) {
+            foreach ($planets as $planet) {
+                $planet->delete();
+            }
+        }
+
+        return true;
+    }
+
+    public function getPlayerStatus($class)
+    {
+        if (in_array('vacation_filter', $class)) {
+            return 1;
+        } elseif (in_array('inactive_filter', $class)) {
+            return 2;
+        }
+
+        return 0;
     }
 }
