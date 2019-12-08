@@ -3,18 +3,22 @@
 namespace App\Services;
 
 use App\Modules\OgameStat;
+use App\Modules\Server;
 use voku\helper\HtmlDomParser;
 
 class OgameStatService
 {
-    public function __construct(OgameStat $ogameStat, PlayerService $playerService)
+    public function __construct(OgameStat $ogameStat, PlayerService $playerService, ServerService $serverService)
     {
         $this->ogameStat = $ogameStat;
         $this->playerService = $playerService;
+        $this->serverService = $serverService;
     }
 
     public function statsPoints(array $requestData)
     {
+        $url = !empty($requestData['url']) ? $requestData['url'] : '';
+        $server = $this->serverService->getServerBySlug($url);
         $html = HtmlDomParser::str_get_html($requestData['data']);
         $rankList = $html->findOne('.userHighscore');
         $list = $rankList->find('tr');
@@ -26,7 +30,7 @@ class OgameStatService
                     $playerName = $this->getPlayerName($val);
                     $score = $this->getScore($val);
                     $playerId = $this->getPlayerId($val);
-                    $this->insertData($playerId, $playerName, $requestData['type'], $position, $score);
+                    $this->insertData($playerId, $playerName, $requestData['type'], $position, $score, $server);
                 }
             }
         }
@@ -82,14 +86,14 @@ class OgameStatService
         return !empty($attributes['data-playerid']) ? $attributes['data-playerid'] : 0;
     }
 
-    public function insertData($playerId, $playerName, $type, $position, $score)
+    public function insertData($playerId, $playerName, $type, $position, $score, $server)
     {
         if (empty($playerId) || empty($playerName) || empty($type) || empty($position)) {
             return false;
         }
 
         $stat = new OgameStat();
-        $stat->player_id = $this->playerService->getPlayerId($playerName, $playerId);
+        $stat->player_id = $this->playerService->getPlayerId($playerName, $playerId, $server);
         $stat->rank = $position;
         $stat->point = $score;
         $stat->type = $type;

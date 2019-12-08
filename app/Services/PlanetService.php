@@ -4,19 +4,23 @@ namespace App\Services;
 
 use App\Modules\OgameStat;
 use App\Modules\Planet;
+use App\Modules\Server;
 use Carbon\Carbon;
 use voku\helper\HtmlDomParser;
 
 class PlanetService
 {
-    public function __construct(Planet $planet, PlayerService $playerService)
+    public function __construct(Planet $planet, PlayerService $playerService, ServerService $serverService)
     {
         $this->planet = $planet;
         $this->playerService = $playerService;
+        $this->serverService = $serverService;
     }
 
     public function statsPoints(array $requestData)
     {
+        $url = !empty($requestData['url']) ? $requestData['url'] : '';
+        $server = $this->serverService->getServerBySlug($url);
         $html = HtmlDomParser::str_get_html($requestData['data']);
         $rankList = $html->findOne('.userHighscore');
         $list = $rankList->find('tr');
@@ -28,7 +32,7 @@ class PlanetService
                     $playerName = $this->getPlayerName($val);
                     $score = $this->getScore($val);
                     $playerId = $this->getPlayerId($val);
-                    $this->insertData($playerId, $playerName, $requestData['type'], $position, $score);
+                    $this->insertData($playerId, $playerName, $requestData['type'], $position, $score, $server);
                 }
             }
         }
@@ -84,14 +88,14 @@ class PlanetService
         return !empty($attributes['data-playerid']) ? $attributes['data-playerid'] : 0;
     }
 
-    public function insertData($playerId, $playerName, $type, $position, $score)
+    public function insertData($playerId, $playerName, $type, $position, $score, ?Server $server)
     {
         if (empty($playerId) || empty($playerName) || empty($type) || empty($position)) {
             return false;
         }
 
         $stat = new OgameStat();
-        $stat->player_id = $this->playerService->getPlayerId($playerName, $playerId);
+        $stat->player_id = $this->playerService->getPlayerId($playerName, $playerId, $server);
         $stat->rank = $position;
         $stat->point = $score;
         $stat->type = $type;
@@ -101,6 +105,8 @@ class PlanetService
 
     public function setGalaxy(array $requestData)
     {
+        $url = !empty($requestData['url']) ? $requestData['url'] : '';
+        $server = $this->serverService->getServerBySlug($url);
         $html = HtmlDomParser::str_get_html($requestData['data']);
         $planetsList = $html->findOne('#mobileDiv');
 
@@ -127,16 +133,16 @@ class PlanetService
                 $playerId = $this->getPlayerId($value);
                 $moon = $this->getMoon($value);
                 $status = $this->getPlayerStatus($class);
-                $this->updatePlayerPlanet($playerId, $name, $galaxy, $system, $key+1);
-                $this->updatePlayerMoon($playerId, $moon, $galaxy, $system, $key+1);
-                $this->playerService->updatePlayerStatus($playerId, $status);
+                $this->updatePlayerPlanet($playerId, $name, $galaxy, $system, $key+1, $server);
+                $this->updatePlayerMoon($playerId, $moon, $galaxy, $system, $key+1, $server);
+                $this->playerService->updatePlayerStatus($playerId, $status, $server);
             }
         }
 
         return true;
     }
 
-    public function updatePlayerMoon($playerId, $moon, int $galaxy, int $system, int $location)
+    public function updatePlayerMoon($playerId, $moon, int $galaxy, int $system, int $location, ?Server $server)
     {
         if (empty($moon)) {
             return false;
@@ -152,7 +158,7 @@ class PlanetService
             ->where('type', 'm')
             ->first();
 
-        $player = $this->playerService->getPlayerById($playerId);
+        $player = $this->playerService->getPlayerById($playerId, $server);
 
         if (empty($player)) {
             return false;
@@ -179,7 +185,7 @@ class PlanetService
         return $planet->save();
     }
 
-    public function updatePlayerPlanet($playerId, $name, int $galaxy, int $system, int $location)
+    public function updatePlayerPlanet($playerId, $name, int $galaxy, int $system, int $location, ?Server $server)
     {
         if (empty($galaxy) || empty($system) || empty($location)) {
             return false;
@@ -191,7 +197,7 @@ class PlanetService
             ->where('type', 'p')
             ->first();
 
-        $player = $this->playerService->getPlayerById($playerId);
+        $player = $this->playerService->getPlayerById($playerId, $server);
 
         if (empty($player)) {
             return false;
