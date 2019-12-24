@@ -5,9 +5,10 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.3.0",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
         "voku/simple_html_dom": "^4.2"
     },
