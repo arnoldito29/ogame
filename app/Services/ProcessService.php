@@ -3,15 +3,17 @@
 namespace App\Services;
 
 use App\Mail\FlatEmail;
+use App\Modules\Flat;
 use App\Modules\Process;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BirthdayEmail;
 
 class ProcessService
 {
-    public function __construct(Process $process)
+    public function __construct(Process $process, Flat $flat)
     {
         $this->process = $process;
+        $this->flat = $flat;
         $this->config = config('mail');
     }
 
@@ -52,12 +54,27 @@ class ProcessService
                     Mail::to($this->config['default'])->send(new BirthdayEmail($item));
                     break;
                 case 'Flat':
-                    Mail::to($this->config['default'])->send(new FlatEmail($item));
+                    $others = $this->getSomeFlats($item);
+                    if (!empty($this->config['second'])) {
+                        Mail::to($this->config['second'])->send(new FlatEmail($item, $others));
+                    }
+                    Mail::to($this->config['default'])->send(new FlatEmail($item, $others));
                     break;
             }
 
             $item->sent = 1;
             $item->save();
         }
+    }
+
+    public function getSomeFlats(Process $process)
+    {
+        $others = $this->flat::where('object_id', $process->model->object_id)
+            ->where('ad_id', '!=', $process->model->ad_id)
+            ->where('size', $process->model->size)
+            ->groupBy('ad_id')
+            ->get();
+
+        return $others;
     }
 }

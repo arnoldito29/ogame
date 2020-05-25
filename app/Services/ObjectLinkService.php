@@ -15,7 +15,7 @@ class ObjectLinkService
 
     public function getObjects()
     {
-        return $this->objectLink::orderBy('id', 'ASC')->get();
+        return $this->objectLink::where('deleted', 0)->orderBy('id', 'ASC')->get();
     }
 
     public function addItem(array $requestDsta)

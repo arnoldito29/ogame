@@ -121,5 +121,6 @@ return [
     ],
 
     'default' => env('DEFAULT_EMAIL'),
+    'second' => env('SECOND_EMAIL'),
 
 ];

@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Collection;
 
 class FlatEmail extends Mailable
 {
@@ -18,9 +19,10 @@ class FlatEmail extends Mailable
      *
      * @return void
      */
-    public function __construct(Process $process)
+    public function __construct(Process $process, Collection $other)
     {
         $this->flat = $process->model;
+        $this->other = $other;
         $this->config = config('mail');
     }
 
@@ -41,6 +43,7 @@ class FlatEmail extends Mailable
                 'price' => $this->flat->price,
                 'link' => $this->flat->link,
                 'diff' => $this->flat->getDiff(),
+                'other' => $this->other,
             ]);
     }
 }
