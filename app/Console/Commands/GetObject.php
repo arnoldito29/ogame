@@ -39,7 +39,7 @@ class GetObject extends Command
      */
     public function handle()
     {
-        $this->objectLinkService->getObjectLinks();
+        //$this->objectLinkService->getObjectLinks();
 
         return true;
     }
