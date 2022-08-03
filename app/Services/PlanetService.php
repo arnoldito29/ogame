@@ -108,19 +108,18 @@ class PlanetService
         $url = !empty($requestData['url']) ? $requestData['url'] : '';
         $server = $this->serverService->getServerBySlug($url);
         $html = HtmlDomParser::str_get_html($requestData['data']);
-        $planetsList = $html->findOne('#mobileDiv');
+        $planetsList = $html->findOne('#middle');
 
         if (!$planetsList->hasAttribute('id')) {
             return false;
         }
 
-        $table = $planetsList->findOne('table');
-        $attributes = $table->getAllAttributes();
+        $list = $planetsList->findOne('#galaxyContent');
 
-        $galaxy = !empty($attributes['data-galaxy']) ? $attributes['data-galaxy'] : 0;
-        $system = !empty($attributes['data-system']) ? $attributes['data-system'] : 0;
+        $galaxy = $requestData['galaxy'] ?? 0;
+        $system = $requestData['system'] ?? 0;
 
-        $rows = $table->findOne('tbody')->find('tr');
+        $rows = $list->find('.ctContentRow');
 
         foreach ($rows as $key => $value) {
             $rowClass =  trim($value->getAttribute('class'));
@@ -129,10 +128,10 @@ class PlanetService
             if (in_array('empty_filter', $class)) {
                 $this->removePlanet($galaxy, $system, $key+1);
             } else {
-                $name = trim($value->findOne('.planetname')->nodeValue);
-                $playerId = $this->getPlayerId($value);
+                $name = trim($value->findOne('.cellPlanetName')->nodeValue);
+                $playerId = $this->getPlayerGalaxyId($value);
                 $moon = $this->getMoon($value);
-                $status = $this->getPlayerStatus($class);
+                $status = $this->getPlayerStatus($class, $value);
                 $this->updatePlayerPlanet($playerId, $name, $galaxy, $system, $key+1, $server);
                 $this->updatePlayerMoon($playerId, $moon, $galaxy, $system, $key+1, $server);
                 $this->playerService->updatePlayerStatus($playerId, $status, $server);
@@ -140,6 +139,23 @@ class PlanetService
         }
 
         return true;
+    }
+
+    public function getPlayerGalaxyId($value)
+    {
+        $playerSpans = $value->findOne('.cellPlayerName')->find('span');
+
+        foreach ($playerSpans as $span) {
+            $player = $span->getAttribute('rel');
+
+            $playerId = preg_split('/player/', $player);
+
+            if (!empty($playerId[1])) {
+                break;
+            }
+        }
+
+        return $playerId[1] ?? ($playerId[0] ?? 0);
     }
 
     public function updatePlayerMoon($playerId, $moon, int $galaxy, int $system, int $location, ?Server $server)
@@ -226,7 +242,7 @@ class PlanetService
 
     public function getMoon($value)
     {
-        $moonItem = $value->findOne('.moon');
+        $moonItem = $value->findOne('.moon_a');
         $moonAttributes = $moonItem->getAllAttributes();
         $moon = !empty($moonAttributes['data-moon-id']) ? $moonAttributes['data-moon-id'] : 0;
 
@@ -253,14 +269,18 @@ class PlanetService
         return true;
     }
 
-    public function getPlayerStatus($class)
+    public function getPlayerStatus($class, $activeUser)
     {
         if (in_array('vacation_filter', $class)) {
             return 1;
         } elseif (in_array('inactive_filter', $class)) {
             return 2;
+        } elseif (in_array('newbie_filter', $class)) {
+            return 3;
         }
 
-        return 0;
+        $user = $activeUser->findOne('.status_abbr_honorableTarget');
+
+        return $user->nodeValue != "" ? 5 : 4;
     }
 }
