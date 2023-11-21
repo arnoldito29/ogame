@@ -9,14 +9,14 @@ use App\Services\TeamService;
 use Illuminate\Console\Command;
 use voku\helper\HtmlDomParser;
 
-class GetSeason extends Command
+class GetSeasonBasketball extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'get:season {url} {--friday=}';
+    protected $signature = 'get:season-basketball {url} {--friday=} {--off=}';
 
     /**
      * The console command description.
@@ -72,9 +72,13 @@ class GetSeason extends Command
             $list[] = ((int) $splitUrl[1] + 1 ) . '-05';
         }
 
-        // Open the file using the HTTP headers set above
-        foreach ($list as $value) {
-            $this->getHtml($url, $value, $context);
+        if (!$this->option('off')) {
+            // Open the file using the HTTP headers set above
+            foreach ($list as $value) {
+                $this->getHtml($url, $value, $context);
+            }
+        } else {
+            $this->getHtml($url, '', $context);
         }
 
         return true;
@@ -116,16 +120,15 @@ class GetSeason extends Command
                 $splitResult = explode(' ', $resultField);
                 $overTime = (count($splitResult) > 1);
                 $result = explode(':', $splitResult[0]);
-                $date = $this->getDate($listItem->findOne('.h-text-right')->nodeValue);
                 $coffList = $listItem->find('.table-main__odds');
                 if (!isset($coffList[0])) {
                     continue;
                 }
+                $date = $this->getDate($listItem->findOne('.h-text-right')->nodeValue);
                 $coff1 = $this->getCoff($coffList[0]);
                 $coff2 = $this->getCoff($coffList[1]);
-                $coff3 = $this->getCoff($coffList[2]);
 
-                $this->addMatch($session, $match, $result, $overTime, $coff1, $coff2, $coff3, $date, $matchUrl);
+                $this->addMatch($session, $match, $result, $overTime, $coff1, $coff2, $date, $matchUrl);
             }
         }
 
@@ -140,7 +143,7 @@ class GetSeason extends Command
         return $y . '.' . $dateList[1] . '.' . $dateList[0];
     }
 
-    private function addMatch($session, $match, $result, $overTime, $coff1, $coff2, $coff3, $date, $matchUrl)
+    private function addMatch($session, $match, $result, $overTime, $coff1, $coff2, $date, $matchUrl)
     {
         $team1 = $this->teamService->checkTeam($match[0], $session);
         $team2 = $this->teamService->checkTeam($match[1], $session);
@@ -158,7 +161,6 @@ class GetSeason extends Command
             'detail' => $date . '-' . $matchUrl,
             'coff1' => $coff1,
             'coff2' => $coff2,
-            'coff3' => $coff3,
         ]);
     }
 }

@@ -9,14 +9,14 @@ use App\Services\TeamService;
 use Illuminate\Console\Command;
 use voku\helper\HtmlDomParser;
 
-class Goal extends Command
+class GoalBasketball extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'get:goal';
+    protected $signature = 'get:goal-basketball';
 
     /**
      * The console command description.
@@ -76,15 +76,16 @@ class Goal extends Command
             $score1 = explode(":", $fullScore[1]);
             $score2 = explode(":", $fullScore[2]);
             $score3 = explode(":", $fullScore[3]);
+            $score4 = explode(":", $fullScore[4]);
 
-            $this->update($value, trim($score1[0]), trim($score1[1]), trim($score2[0]), trim($score2[1]), trim($score3[0]), trim($score3[1]));
+            $this->update($value, trim($score1[0]), trim($score1[1]), trim($score2[0]), trim($score2[1]), trim($score3[0]), trim($score3[1]), trim($score4[0]), trim($score4[1]));
 
         }
 
         return true;
     }
 
-    private function update($value, $score1, $score2, $score3, $score4, $score5, $score6)
+    private function update($value, $score1, $score2, $score3, $score4, $score5, $score6, $score7, $score8)
     {
         $value->team_result_qt1_1 = $score1;
         $value->team_result_qt1_2 = $score2;
@@ -92,6 +93,8 @@ class Goal extends Command
         $value->team_result_qt2_2 = $score4;
         $value->team_result_qt3_1 = $score5;
         $value->team_result_qt3_2 = $score6;
+        $value->team_result_qt4_1 = $score7;
+        $value->team_result_qt4_2 = $score8;
 
         $value->save();
     }
