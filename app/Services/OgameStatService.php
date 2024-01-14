@@ -69,8 +69,9 @@ class OgameStatService
         }
 
         $score = trim($score->nodeValue);
+        $score = str_replace('.', '', $score);
 
-        return str_replace('.', '', $score);
+        return str_replace(',', '', $score);
     }
 
     public function getPlayerId($item)
@@ -83,12 +84,27 @@ class OgameStatService
 
         $attributes = $playerId->getAllAttributes();
 
-        return !empty($attributes['data-playerid']) ? $attributes['data-playerid'] : 0;
+        $id = !empty($attributes['data-playerid']) ? $attributes['data-playerid'] : 0;
+
+        if (empty($id)) {
+            $attributes = $item->getAllAttributes();
+
+            if (empty($attributes['id'])) {
+                return 0;
+            }
+
+            $id = str_replace('position', '', $attributes['id']);
+
+            return (int) $id;
+        }
+
+        return $id;
     }
 
     public function insertData($playerId, $playerName, $type, $position, $score, $server)
     {
         if (empty($playerId) || empty($playerName) || empty($type) || empty($position)) {
+            dd($playerName,$playerId,$position,'taip');
             return false;
         }
 

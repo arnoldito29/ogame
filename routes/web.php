@@ -30,4 +30,9 @@ Route::prefix('admin')->namespace('Admin')->middleware('admin')->group(function 
         Route::patch('/{birthday}', 'BirthdayController@update')->name('birthdays.update');
         Route::delete('/{birthday}/delete', 'BirthdayController@destroy')->name('birthdays.destroy');
     });
+
+    Route::prefix('ogame')->group(function () {
+        Route::get('/add', 'OgameController@create')->name('ogame.add');
+        Route::post('/', 'OgameController@store')->name('ogame.store');
+    });
 });

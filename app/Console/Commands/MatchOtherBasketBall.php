@@ -42,7 +42,7 @@ class MatchOtherBasketBall extends Command
     {
         $split = 'team_result';
 
-        $teams = $this->teamService->team::where('id', '>', '156')->where('id', '<', '176')->get();
+        $teams = $this->teamService->team::where('id', '>', '282')->where('id', '<', '1760')->get();
         $total = 0;
         foreach ($teams as $team) {
             $match = MatchGame::where('team_id1', $team->id)->orWhere('team_id2', $team->id)->orderBy('detail', 'ASC')->get();
@@ -52,13 +52,13 @@ class MatchOtherBasketBall extends Command
                 $team2 = $split . '_2';
                 if ($matchItem->coff1 > $matchItem->coff2 && $matchItem->$team1 > $matchItem->$team2) {
                     $this->showInfo($overtime);
-                    $this->printResult($result, $overtime);
+                    //$this->printResult($result, $overtime);
                     $overtime = 0;
                     $total++;
                     $result = [];
                 } else if ($matchItem->coff1 <= $matchItem->coff2 && $matchItem->$team1 < $matchItem->$team2) {
                     $this->showInfo($overtime);
-                    $this->printResult($result, $overtime);
+                    //$this->printResult($result, $overtime);
                     $overtime = 0;
                     $total++;
                     $result = [];
@@ -86,7 +86,7 @@ class MatchOtherBasketBall extends Command
 
     public function showInfo($overtime)
     {
-        if ($overtime > 10) {
+        if ($overtime > 1) {
             $this->info($overtime);
         }
     }
