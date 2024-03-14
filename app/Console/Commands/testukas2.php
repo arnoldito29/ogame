@@ -7,6 +7,10 @@ use Illuminate\Console\Command;
 class testukas2 extends Command
 {
     const SPEED = 8;
+
+    const MULTI = [
+        'plasma',
+    ];
     const COLONIES = [
         [
             'name' => 'colony 3:47:4',
@@ -261,8 +265,78 @@ class testukas2 extends Command
         $colonies = self::COLONIES;
         $cost = $this->updateColonies($colonies, 'metal');
         $new = $this->build($colonies);
-        $this->info('atsiperka: ' . ($cost/($new - $total)));
-        $this->info('atsiperka 24: ' . (($cost/($new - $total))/24));
+        $this->info('metal atsiperka: ' . ($cost/($new - $total)));
+        $this->info('metal atsiperka 24: ' . (($cost/($new - $total))/24));
+        $colonies = self::COLONIES;
+        $cost = $this->updateColonies($colonies, 'crystal');
+        $new = $this->build($colonies);
+        $this->info('crystal atsiperka: ' . ($cost/($new - $total)));
+        $this->info('crystal atsiperka 24: ' . (($cost/($new - $total))/24));
+        $colonies = self::COLONIES;
+        $cost = $this->updateColonies($colonies, 'deuterium');
+        $new = $this->build($colonies);
+        $this->info('deuterium atsiperka: ' . ($cost/($new - $total)));
+        $this->info('deuterium atsiperka 24: ' . (($cost/($new - $total))/24));
+        $colonies = self::COLONIES;
+        $cost = $this->updateColonies($colonies, 'plasma');
+        $new = $this->build($colonies);
+        $this->info('plasma atsiperka: ' . ($cost/($new - $total)));
+        $this->info('plasma atsiperka 24: ' . (($cost/($new - $total))/24));
+    }
+
+    private function updateColonies(array &$colonies, string $update)
+    {
+        $cost = 0;
+
+        foreach ($colonies as $key => $colony) {
+            $colonies[$key][$update] = $colony[$update] + 1;
+            $price = $this->getPrice($colonies[$key][$update], $update);
+
+            $cost = in_array($update, self::MULTI) ? $price : $cost + $price;
+        }
+
+        return $cost;
+    }
+
+    private function getPrice(int $level, string $update)
+    {
+        $result = [];
+        switch ($update) {
+            case 'metal':
+                $result = [
+                    'metal' => 60 * pow(1.5, ($level - 1)),
+                    'crystal' => 15 * pow(1.5, ($level - 1)),
+                    'deuterium' => 0,
+                ];
+                break;
+            case 'crystal':
+                $result = [
+                    'metal' => 48 * pow(1.6, ($level - 1)),
+                    'crystal' => 24 * pow(1.6, ($level - 1)),
+                    'deuterium' => 0,
+                ];
+                break;
+            case 'deuterium':
+                $result = [
+                    'metal' => 225 * pow(1.5, ($level - 1)),
+                    'crystal' => 75 * pow(1.5, ($level - 1)),
+                    'deuterium' => 0,
+                ];
+                break;
+            case 'plasma':
+                $result = [
+                    'metal' => 2000 * pow(2, ($level - 1)),
+                    'crystal' => 4000 * pow(2, ($level - 1)),
+                    'deuterium' => 1000 * pow(2, ($level - 1)),
+                ];
+                break;
+        }
+
+        if (empty($result)) {
+            return 0;
+        }
+
+        return $this->convert((int) $result['metal'],(int) $result['crystal'],(int) $result['deuterium']);
     }
 
     /**
