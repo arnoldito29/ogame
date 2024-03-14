@@ -13,6 +13,9 @@ class MenuService
 
     public function getMenu()
     {
-        return $this->menu::orderBy('order', 'ASC')->get();
+        return $this->menu::with('child')
+            ->where('parent_id', 0)
+            ->orderBy('order', 'ASC')
+            ->get();
     }
 }

@@ -42,7 +42,7 @@ class MatchOtherBasketBall extends Command
     {
         $split = 'team_result';
 
-        $teams = $this->teamService->team::where('id', '>', '282')->where('id', '<', '1760')->get();
+        $teams = $this->teamService->team::get();
         $total = 0;
         foreach ($teams as $team) {
             $match = MatchGame::where('team_id1', $team->id)->orWhere('team_id2', $team->id)->orderBy('detail', 'ASC')->get();

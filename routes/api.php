@@ -26,4 +26,6 @@ Route::prefix('v1')->namespace('Api\Controllers')->group(function() {
 
         Route::post('/galaxy', 'PlanetController@galaxy')->name('ogame.galaxy');
     });
+
+    Route::get('/menu', 'MenuController@getMenu')->name('menu.index');
 });
