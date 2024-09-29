@@ -4,241 +4,39 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class testukas2 extends Command
+class Resources extends Command
 {
-    const SPEED = 8;
+    const SPEED = 10;
 
     const MULTI = [
         'plasma',
     ];
     const COLONIES = [
         [
-            'name' => 'colony 3:47:4',
-            'size' => 4,
-            'metal' => 34,
-            'crystal' => 29,
-            'deuterium' => 29,
-            'reactor' => 16,
-            'energy' => 16,
-            'temp' => 53,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 3:47:9',
-            'size' => 9,
-            'metal' => 36,
-            'crystal' => 31,
-            'deuterium' => 31,
-            'reactor' => 18,
-            'energy' => 16,
-            'temp' => 4,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 2:133:8',
+            'name' => 'colony 3:161:8',
             'size' => 8,
-            'metal' => 34,
-            'crystal' => 28,
-            'deuterium' => 30,
-            'reactor' => 17,
-            'energy' => 16,
-            'temp' => 30,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 2:133:9',
-            'size' => 9,
-            'metal' => 34,
-            'crystal' => 28,
-            'deuterium' => 29,
-            'reactor' => 17,
-            'energy' => 16,
-            'temp' => 35,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 3:350:8',
-            'size' => 8,
-            'metal' => 35,
-            'crystal' => 30,
-            'deuterium' => 30,
-            'reactor' => 17,
-            'energy' => 16,
-            'temp' => 38,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 3:350:10',
-            'size' => 10,
-            'metal' => 35,
+            'metal' => 41,
             'crystal' => 31,
-            'deuterium' => 30,
-            'reactor' => 17,
-            'energy' => 16,
-            'temp' => 12,
-            'plasma' => 11,
-            'creeper' => 0,
+            'deuterium' => 33,
+            'reactor' => 19,
+            'energy' => 19,
+            'temp' => 21,
+            'plasma' => 13,
+            'crawler_percent' => 0.90,
             'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
+            'magma' => 16,
+            'refinery'=> 4,
             'syn' => 0,
             'class' => false,
             'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:380:9',
-            'size' => 9,
-            'metal' => 35,
-            'crystal' => 30,
-            'deuterium' => 30,
-            'reactor' => 17,
-            'energy' => 16,
-            'temp' => 35,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:380:10',
-            'size' => 10,
-            'metal' => 35,
-            'crystal' => 31,
-            'deuterium' => 31,
-            'reactor' => 18,
-            'energy' => 16,
-            'temp' => 8,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:392:9',
-            'size' => 9,
-            'metal' => 31,
-            'crystal' => 27,
-            'deuterium' => 13,
-            'reactor' => 0,
-            'energy' => 16,
-            'temp' => 29,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:392:7',
-            'size' => 7,
-            'metal' => 31,
-            'crystal' => 27,
-            'deuterium' => 21,
-            'reactor' => 10,
-            'energy' => 16,
-            'temp' => 42,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:329:8',
-            'size' => 8,
-            'metal' => 29,
-            'crystal' => 25,
-            'deuterium' => 21,
-            'reactor' => 6,
-            'energy' => 16,
-            'temp' => 43,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
-        ],
-        [
-            'name' => 'colony 1:329:9',
-            'size' => 9,
-            'metal' => 13,
-            'crystal' => 20,
-            'deuterium' => 11,
-            'reactor' => 1,
-            'energy' => 16,
-            'temp' => 37,
-            'plasma' => 11,
-            'creeper' => 0,
-            'items' => 0,
-            'magma' => 0,
-            'refinery'=> 0,
-            'syn' => 0,
-            'class' => false,
-            'ally' => true,
-            'lifeform' => [],
+            'lifeform' => [
+				'planets' => 11,
+				'bonus' => 0.002,
+				'acoustic' => 1,
+				'powered' => 3,
+				'depth' => 0,
+				'pump' => 0,
+			],
         ],
     ];
 
@@ -247,14 +45,15 @@ class testukas2 extends Command
      *
      * @var string
      */
-    protected $signature = 'app:testukas';
+    protected $signature = 'app:resources';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Total resources';
+
 
     /**
      * Execute the console command.
@@ -385,8 +184,12 @@ class testukas2 extends Command
         $plasma = $data['plasma'] * 1 * $metalProduct / 100;
         $class = $data['class'] ? $metalProduct * 0.25 : 0;
         $ally = $data['ally'] ? $metalProduct * 0.05 : 0;
+		$magma = $data['magma'] * $metalProduct * 0.02;
+		$lifeformData = $data['lifeform'];
+		$crawler = ($data['metal'] + $data['crystal'] + $data['deuterium']) * 8 * 0.0002 * $metalProduct * $data['crawler_percent'];
+		$lifeform = (1 + $lifeformData['bonus']) * $lifeformData['planets'] * ($lifeformData['powered'] * 0.0008 + $lifeformData['depth'] * 0.0008) * $metalProduct;
 
-        return floor($base) + floor($metalProduct) + floor($plasma) + floor($class) + floor($ally);
+        return floor($base) + floor($metalProduct) + floor($plasma) + floor($class) + floor($ally) + floor($magma) + floor($lifeform) + floor($crawler);
     }
 
     private function crystalTotal(array $data)
@@ -401,8 +204,12 @@ class testukas2 extends Command
         $plasma = $data['plasma'] * 0.66 * $crystalProduct / 100;
         $class = $data['class'] ? $crystalProduct * 0.25 : 0;
         $ally = $data['ally'] ? $crystalProduct * 0.05 : 0;
+        $refinery = $data['refinery'] ? $data['refinery'] * $crystalProduct * 0.02 : 0;
+		$lifeformData = $data['lifeform'];
+		$crawler = ($data['metal'] + $data['crystal'] + $data['deuterium']) * 8 * 0.0002 * $crystalProduct * $data['crawler_percent'];
+		$lifeform = (1 + $lifeformData['bonus']) * $lifeformData['planets'] * ($lifeformData['powered'] * 0.0008 + $lifeformData['acoustic'] * 0.0008) * $crystalProduct;
 
-        return floor($base) + floor($crystalProduct) + floor($plasma) + floor($class) + floor($ally);
+        return floor($base) + floor($crystalProduct) + floor($plasma) + floor($class) + floor($ally) + floor($refinery) + floor($lifeform) + floor($crawler);
     }
     private function deuteriumTotal(array $data)
     {
@@ -412,8 +219,12 @@ class testukas2 extends Command
         $plasma = $data['plasma'] * 0.33 * $deuteriumProduct / 100;
         $class = $data['class'] ? $deuteriumProduct * 0.25 : 0;
         $ally = $data['ally'] ? $deuteriumProduct * 0.05 : 0;
+        $syn = $data['syn'] ? $data['syn'] * $deuteriumProduct * 0.02 : 0;
+		$lifeformData = $data['lifeform'];
+		$crawler = ($data['metal'] + $data['crystal'] + $data['deuterium']) * 8 * 0.0002 * $deuteriumProduct * $data['crawler_percent'];
+		$lifeform = (1 + $lifeformData['bonus']) * $lifeformData['planets'] * ($lifeformData['powered'] * 0.0008 + $lifeformData['pump'] * 0.0008) * $deuteriumProduct;
 
-        return floor($deuteriumProduct) + floor($plasma) + floor($class) + floor($ally) - floor($reactor);
+        return floor($deuteriumProduct) + floor($plasma) + floor($class) + floor($ally) - floor($reactor) + floor($syn) + floor($lifeform) + floor($crawler);
     }
 
     private function getMetalBonus(int $size)
