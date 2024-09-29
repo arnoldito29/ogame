@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ResourceService;
 use Illuminate\Console\Command;
 
 class Resources extends Command
@@ -54,6 +55,11 @@ class Resources extends Command
      */
     protected $description = 'Total resources';
 
+    public function __construct(ResourceService $resourceService)
+    {
+        $this->resourceService = $resourceService;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
