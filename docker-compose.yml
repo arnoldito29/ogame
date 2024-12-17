@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  mysql-dbb:
+    image: mysql:8.0
+    container_name: mysql-dbb
+    volumes:
+      - /volume1/docker/mysql-data2:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass-ogame
+      - MYSQL_DATABASE=ogame
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=pass
+    networks:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  app:
+    build: .
+    container_name: laravel_scaffold
+    command: >-
+      sh -c "
+        apk add php82-pecl-xdebug && composer install ;\
+        cp docker/php.ini /etc/php82/php.ini ;\
+        php artisan migrate ;\
+        php artisan serve --host 0.0.0.0 --port 80"
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html:rw
+    networks:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  redis:
+    image: redis:6-alpine
+    container_name: laravel_scaffold_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache_data:/data
+    networks:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+volumes:
+  db_data:
+    driver: "local"
+  cache_data:
+    driver: "local"
+
+networks:
+  backend:
+    driver: "bridge"
